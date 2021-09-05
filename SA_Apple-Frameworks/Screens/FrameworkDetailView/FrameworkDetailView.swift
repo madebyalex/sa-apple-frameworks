@@ -15,11 +15,20 @@ struct FrameworkDetailView: View {
     
     var body: some View {
         VStack {
-            XDismissButton(isShowingDetailView: $isShowingDetailView)
-            
-            Spacer()
-            
-            FrameworkTitleView(framework: framework)
+            ZStack (alignment: .bottom) {
+                Image(framework.imageName)
+                    .resizable()
+                    .frame(maxHeight: 280)
+                    .aspectRatio(contentMode: .fit)
+                    .scaledToFill()
+                    .opacity(0.24)
+                
+                HStack {
+                    FrameworkTitleView(framework: framework)
+                    Spacer()
+                }
+                
+            }
             
             ScrollView {
                 Text(framework.description)
@@ -50,7 +59,7 @@ struct FrameworkDetailView: View {
 struct FrameworkDetailView_Previews: PreviewProvider {
     static var previews: some View {
         FrameworkDetailView(framework: MockData.sampleFramework, isShowingDetailView: .constant(false))
-            .preferredColorScheme(.dark)
+            
     }
 }
 
