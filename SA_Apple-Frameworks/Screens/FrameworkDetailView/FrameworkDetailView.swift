@@ -15,20 +15,7 @@ struct FrameworkDetailView: View {
     
     var body: some View {
         VStack {
-            HStack {
-                Spacer()
-                
-                Button {
-                    isShowingDetailView = false
-                } label: {
-                    Image(systemName: "xmark")
-                        .foregroundColor(Color(.label))
-                        .opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/)
-                        .imageScale(.large)
-                        .frame(width: 44, height: 44)
-                }
-            }
-            .padding(.all, 20)
+            XDismissButton(isShowingDetailView: $isShowingDetailView)
             
             Spacer()
             
@@ -50,13 +37,13 @@ struct FrameworkDetailView: View {
             }
         }
         
-        .sheet(isPresented: $isShowingSafariView, content: {
-            SafariView(url: URL(string: framework.urlString) ?? URL(string: "www.apple.com")!)
-        })
-        
-//        .fullScreenCover(isPresented: $isShowingSafariView, content: {
+//        .sheet(isPresented: $isShowingSafariView, content: {
 //            SafariView(url: URL(string: framework.urlString) ?? URL(string: "www.apple.com")!)
 //        })
+        
+        .fullScreenCover(isPresented: $isShowingSafariView, content: {
+            SafariView(url: URL(string: framework.urlString) ?? URL(string: "www.apple.com")!)
+        })
     }
 }
 
@@ -66,3 +53,20 @@ struct FrameworkDetailView_Previews: PreviewProvider {
             .preferredColorScheme(.dark)
     }
 }
+
+//// Experiment
+//struct StepperView: View {
+//
+//    @State private var value = 10
+//    let step = 5
+//    let range = 0...50
+//
+//    var body: some View {
+//        Stepper(value: $value,
+//                in: range,
+//                step: step) {
+//            Text("Current: \(value) in \(range.description) " + "stepping by \(step)")
+//        }
+//        .padding(10)
+//    }
+//}
